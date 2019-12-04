@@ -1,26 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Nav from './Nav.js'
+import Cases from './Cases.js'
+import Clients from './Clients.js'
+
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'; 
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  return ( 
+    <Router>
+      <div className="App">
+        <Nav />
+        <Switch>
+          <Route path="/" exact component={HomePage}/>
+          <Route path="/cases" exact component={Cases}/>
+          <Route path="/clients" exact component={Clients}/>
+          <Route path="/agenda" exact component={Agenda}/>
+        </Switch>
+      </div>
+    </Router>
   );
 }
+
+const HomePage = () => (
+  <div>
+    <div className="cardColor">
+      <h2>Bienvenido a Procusmart Web, Messi</h2>
+    </div>
+    <div className="card">
+    <h3>Ultimas acciones</h3>
+
+    <p className="itemColor">Cracion de Caso X</p>
+    <p className="itemColor">Nuevo Cliente Pep</p>
+    <p className="itemColor">Nuevo Movimiento en Caso X</p>
+    </div>
+    <div className="card">
+    <h3>Proximos eventos</h3>
+
+    <p className="itemColor">Evento Caso 111/2020 - Tribunal I</p>
+    <p className="itemColor">Evento Caso 321/2020	- Reunion cliente</p>
+    <p className="itemColor">Evento Caso 555/2030	- Consulta de fuero</p>
+    </div>
+  </div>
+);
+
+const Agenda = () => (
+  <div className="cardColor">
+    <h3>Agenda</h3>
+  </div>
+);
 
 export default App;
