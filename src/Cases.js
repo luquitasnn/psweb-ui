@@ -1,18 +1,8 @@
 import React, { Component} from 'react';
-import logo from './appicon_v24_full.png';
+import logo from './appicon_v24.png';
 import './App.css';
+import { Link } from 'react-router-dom';
 
-
-// reactstrap components
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Table,
-  Row,
-  Col
-} from "reactstrap";
 
 class Cases extends Component {
   
@@ -25,12 +15,14 @@ class Cases extends Component {
   }
 
   componentDidMount() {
+
     fetch ('https://procusmart-web-api.herokuapp.com/api/v1/cases')
       .then(res => res.json())
       .then(json => {
+        console.log (json)
         this.setState ({
           isLoaded: true,
-          items: json,
+          items: json,  
         })
       })
   }
@@ -41,16 +33,11 @@ class Cases extends Component {
 
     if (!isLoaded) {
       return (
-        <div className="App">
-        <header className="App-header">
-          <img src={logo} alt="logo" />
-          <h2>
-            New ProcuSmart Web
-          </h2>
+        <div className="loading">
           <h2>
             Loading...
           </h2>
-        </header>
+          <img src={logo} alt="logo" />
       </div>
       );
     }
@@ -73,39 +60,20 @@ class Cases extends Component {
             </ul>
         </div>*/
         
-        <div className="content">
-          <Row>
-            <Col md="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Casos</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <Table className="tablesorter" responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        <th>Expediente</th>
-                        <th>Autos</th>
-                        <th>Fuero</th>
-                        <th>Tribunal</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    { items.map(item => (
-                      <tr>
-                        <td>{item.n_expte}</td>
-                        <td>{item.autos}</td>
-                        <td>{item.fuero}</td>
-                        <td>{item.tribunal}</td>
-                      </tr>
-                     ))} 
-                    </tbody>
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
+        <div className="card">
+        <ul>
+          <li><h3>Casos</h3></li>
+          <li className="leftli"><button className="buttonAdd">Nuevo</button></li>
+        </ul>
+        
+        
+
+        { items.map(item => (
+                      <p className="itemColor">
+                        <Link to={`/cases/${item.id}`}> <b>{item.n_expte} </b> {item.autos} </Link>
+                      </p>
+        ))} 
+      </div>
       );
     }
   }
